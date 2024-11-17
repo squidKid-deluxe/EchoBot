@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>EchoBot</title>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+        <script type="text/javascript" src="DOMPurify.min.js"></script>
+        <script type="text/javascript" src="utilities.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="menus.js"></script>
+        <link rel="stylesheet" href="menus.css">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body onload="setCallbacks(); initContextMenu();">
+        <!-- "Sidenav" for user list -->
+        <img id="userlistbutton" src="Arrow.png" width="40px" onclick="openUserList()" style="transform: scaleX(-1)">
+        <div id="userListContainer" class="userlistleft">
+            <a class="closebtn" onclick="closeUserList()">&times;</a>
+            <ul id="userList">
+            </ul>
+        </div>
+        <!-- "Sidenav" for chat list -->
+        <img id="chatlistbutton" src="Arrow.png" width="40px" onclick="openChatList()">
+        <div id="chatListContainer" class="chatlistright">
+            <!-- notification checkbox -->
+            <label class="notify-wrapper checked" id="notifyWrapper">
+                <input type="checkbox" id="notificationButton" checked>
+            </label>
+            <a class="closebtn" onclick="closeChatList()">&times;</a>
+            <!-- Radio buttons for the chats -->
+            <div id="chatList-container" onclick="toggleInputField()">
+                <input type="radio" id="option1" name="chatList" value="option1">
+                <label for="option1">Option 1</label>
+            </div>
+        </div>
+        <!-- Context Menu for Edit and Delete messages -->
+        <div id="context-menu">
+            <ul>
+                <li>Edit</li>
+                <li>Delete</li>
+            </ul>
+        </div>
+        <!-- Modals -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to delete this message?</p>
+                <button class="confirm" id="confirmBtn">Yes</button>
+                <button class="cancel" id="cancelBtn">No</button>
+            </div>
+        </div>
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <p>Edit Message</p>
+                <textarea id="editBox" type="text" oninput="auto_height(this)"></textarea>
+                <button class="confirm" id="editConfirmBtn">Confirm</button>
+                <button class="cancel" id="editCancelBtn">Cancel</button>
+            </div>
+        </div>
+        <div id="fileModal" class="modal">
+            <div class="modal-content">
+                <p>Upload File</p>
+                <input type="file" id="fileInput">
+                <br>
+                <textarea id="captionBox" placeholder="Caption..." type="text" oninput="auto_height(this)" style="display:inline-block;"></textarea>
+                <br>
+                <button class="confirm" id="fileConfirmBtn">Upload</button>
+                <button class="cancel" id="fileCancelBtn">Cancel</button>
+            </div>
+        </div>
+        <!-- Main container -->
+        <div id="container">
+            <div id="center-div" style="margin:auto;display:block;width:75%">
+                <div id="main" style="display:block">
+                    <div id="chatHolder">
+                        <table id="chat" class="chatTable">
+                            <tr><th>Loading chat data...</th></tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="inputBox">
+                        <textarea id="chatbox" type="text" oninput="auto_height(this)" style="display:inline-block;"></textarea>
+                        <button onclick="openModal('fileModal')"><img src="Upload.png" width=20px></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
